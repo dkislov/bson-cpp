@@ -18,6 +18,9 @@
 #include "nonce.h"
 #include <boost/static_assert.hpp>
 #include <boost/thread/mutex.hpp>
+#include <fstream>
+ 
+using namespace std;
 
 namespace Nonce {
 
