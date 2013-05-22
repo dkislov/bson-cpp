@@ -20,7 +20,7 @@
 #include <boost/scoped_array.hpp>
 #include <iostream>
 #include <sstream>
-#include <string>
+#include <cstring>
 
 namespace base64 {
 
