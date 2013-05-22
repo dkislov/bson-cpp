@@ -44,10 +44,13 @@ namespace bson {
 
     void OID::foldInPid(OID::MachineAndPid& x) {
         unsigned p = ourPid();
+        unsigned short temp;
         x._pid ^= (unsigned short) p;
         // when the pid is greater than 16 bits, let the high bits modulate the
         // machine id field.
-        unsigned short& rest = (unsigned short &) x._machineNumber[1];
+        memcpy(&temp, &x._machineNumber[1], sizeof(unsigned short));
+        // unsigned short& rest = (unsigned short &) x._machineNumber[1];
+        unsigned short& rest = temp;
         rest ^= p >> 16;
     }
 
@@ -84,11 +87,14 @@ namespace bson {
 
     unsigned OID::getMachineId() {
         unsigned char x[4];
+        unsigned temp;
         x[0] = ourMachineAndPid._machineNumber[0];
         x[1] = ourMachineAndPid._machineNumber[1];
         x[2] = ourMachineAndPid._machineNumber[2];
         x[3] = 0;
-        return (unsigned&) x[0];
+        memcpy(&temp, &x[0], sizeof(unsigned));
+        // return (unsigned&) x[0];
+        return temp;
     }
 
     void OID::justForked() {
